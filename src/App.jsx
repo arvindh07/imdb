@@ -1,7 +1,11 @@
+import "./App.css";
+
 function App() {
   return (
     <>
-      <h1>Imdb</h1>
+      <div>
+        <h1 className="text-5xl underline text-red-700">IMDB</h1>
+      </div>
     </>
   )
 }
