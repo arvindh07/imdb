@@ -1,6 +1,12 @@
+import Banner from "../components/Banner";
+import MovieList from "../components/MovieList";
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className="mx-auto w-full">
+      <Banner />
+      <MovieList />
+    </div>
   )
 }
 
