@@ -36,7 +36,7 @@ const MovieList = () => {
                     return (
                         <div
                             key={movie.id}
-                            className="rounded-xl cursor-pointer hover:bg-yellow-200 w-1/5 transition-all duration-300 hover:scale-105"
+                            className="rounded-xl cursor-pointer w-1/5 transition-all duration-300 hover:scale-105"
                             style={{
                                 boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
                             }}>
