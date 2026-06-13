@@ -39,7 +39,7 @@ const Banner = () => {
             <div className="relative h-full w-full overflow-hidden">
                 {trendingMovies.map((movie, idx) => (
                     <div
-                        key={movie.id}
+                        key={movie.id + "trend"}
                         className={`absolute h-full inset-0 bg-cover bg-center transition-opacity duration-700 ${currentIdx === idx ? "opacity-100" : "opacity-0"}`}
                         style={{
                             backgroundImage: `url(${getImageOriginalURL(movie.backdrop_path)})`,
@@ -69,7 +69,7 @@ const Banner = () => {
                         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center gap-2">
                             {trendingMovies.map((_, idx) => {
                                 return (
-                                    <div className={`transition-all duration-300 ease-in-out ${currentIdx === idx ? "w-6 h-2 rounded-lg bg-white" : "w-2 h-2 rounded-full bg-white/30"}`}></div>
+                                    <div key={idx} className={`transition-all duration-300 ease-in-out ${currentIdx === idx ? "w-6 h-2 rounded-lg bg-white" : "w-2 h-2 rounded-full bg-white/30"}`}></div>
                                 )
                             })}
                         </div>

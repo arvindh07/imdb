@@ -3,19 +3,21 @@ import { fetchData } from "../api/api"
 import { urls } from "../api/urls"
 import { getGenreName, getImageURL } from "../utils/common";
 import { Plus } from "lucide-react";
+import MovieOverlay from "./MovieOverlay";
 
 const MovieList = () => {
     const [trendingMovies, setTrendingMovies] = useState([]);
     const [genres, setGenres] = useState([]);
     const [page, setPage] = useState(2);
     const [watchList, setWatchList] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedMovie, setSelectedMovie] = useState(null);
 
     const fetchTrendingMovies = async () => {
         const response = await fetchData(urls.TRENDING_MOVIES, `&page=${page}`);
 
         if (!response.error) {
             setTrendingMovies(response.data?.results || []);
-            setTotalPages(response.data?.total_pages || 1);
         }
     }
 
@@ -53,8 +55,12 @@ const MovieList = () => {
                     const isAlreadyPresent = checkIfPresentInWatchlist(movie.id);
                     return (
                         <div
-                            key={movie.id}
-                            className="rounded-xl w-1/5 transition-all duration-300"
+                            key={movie.id + "list"}
+                            onClick={() => {
+                                setOpenModal(true);
+                                setSelectedMovie(movie);
+                            }}
+                            className="rounded-xl w-1/5 transition-all duration-300 cursor-pointer"
                             style={{
                                 boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
                             }}>
@@ -65,10 +71,9 @@ const MovieList = () => {
                                 <h1 className="mb-3 text-xl font-bold">{movie.title}</h1>
                                 {movie.genre_ids.map((id, idx) => {
                                     return (
-                                        <span key={id + idx}>{getGenreName(id, genres)}{idx !== movie.genre_ids.length - 1 ? " • " : ""}</span>
+                                        <span key={idx}>{getGenreName(id, genres)}{idx !== movie.genre_ids.length - 1 ? " • " : ""}</span>
                                     )
                                 })}
-                                <p><i>Release Date:</i> {movie.release_date}</p>
 
                                 {!isAlreadyPresent ? <button
                                     onClick={() => handleAddToWatchList(movie)}
@@ -85,6 +90,7 @@ const MovieList = () => {
                     )
                 })}
             </div>
+            {openModal && <MovieOverlay selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie} setOpenModal={setOpenModal} />}
         </div>
     )
 }
